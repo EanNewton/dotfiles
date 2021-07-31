@@ -1,4 +1,6 @@
-# 💾 Ian's Dotfiles and Vim config
+# 💾 Ean's Forked Dotfiles and Vim config
+
+See statico/dotfiles for origin repo. I have not updated this yet. 
 
 These are my dotfiles. There are many like them, but these are mine.
 
