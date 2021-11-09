@@ -1,0 +1,3 @@
+# DPI Scaling
+# multiples of 96 recommended
+Xft.dpi:    96
