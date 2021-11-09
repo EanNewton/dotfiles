@@ -5,7 +5,7 @@ set -eo pipefail
 
 basedir="$HOME/.dotfiles"
 bindir="$HOME/bin"
-repourl="git://github.com/statico/dotfiles.git"
+repourl="git://github.com/EanNewton/dotfiles.git"
 
 function symlink() {
   src="$1"
