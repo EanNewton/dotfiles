@@ -10,25 +10,25 @@
 	private = yes
 [init]
 	defaultBranch = main
+[log]
+	decorate = short
+[pull]
+	default = simple
+[push]
+	default = current
+[rerere]
+	enabled = true
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+	keepBackup = false
 [branch "main"]
 	remote = origin
 	merge = refs/heads/main
 [branch "master"]
 	remote = origin
 	merge = refs/heads/master
-[log]
-	decorate = short
-[push]
-	default = current
-[difftool]
-	prompt = false
-[mergetool]
-	prompt = false
-	keepBackup = false
-[pull]
-	default = simple
-[rerere]
-	enabled = true
 [alias]
 	am = commit --amend --no-edit
 	ama = commit --amend --no-edit -a
@@ -51,8 +51,8 @@
 	last = log -1
 	latest = for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
 	newb = checkout -b
-	quicklog = log --oneline --decorate -10 --pretty=format:'%C(yellow)%h%C(reset)%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-	quicklog-long = log --oneline --decorate --pretty=format:'%C(yellow)%h%C(reset)%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	quicklog = log --oneline --decorate -10 --pretty=format:'%C(yellow)%h%C(reset)%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an> %C(bold black)[%G?]%Creset'
+	quicklog-long = log --oneline --decorate --pretty=format:'%C(yellow)%h%C(reset)%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an> %C(bold black)[%G?]%Creset'
 	r = remote
 	rb = rebase
 	rl = reflog
