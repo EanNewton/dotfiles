@@ -36,7 +36,9 @@ function symlink() {
 
 if ! which git >/dev/null ; then
   echo "Error: git is not installed"
-  exit 1
+  # exit 1
+  # Let's try to install git instead
+  sudo apt install git
 fi
 
 if [ -d "$basedir/.git" ]; then
