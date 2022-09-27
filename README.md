@@ -6,7 +6,7 @@ These are my dotfiles. There are many like them, but these are mine. This starte
 
 ![CleanShot 2021-10-01 at 20 15 23@2x](https://user-images.githubusercontent.com/137158/135730113-495868f0-e4ad-4e8a-a10e-7f07be402e9d.png)
 
-Favorite font at the moment: [Iosevka Term](https://typeof.net/Iosevka/)
+Favorite font at the moment: [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
 
 ### Installation
 
