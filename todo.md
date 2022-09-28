@@ -1,0 +1,2 @@
+- Add scripts for grabbing the usual Windows / Linux logs
+- Add Tango Dark color scheme to .Xresources
