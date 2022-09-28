@@ -91,14 +91,14 @@ for item in bin/* ; do
 done
 
 # Untested
-echo "Setting up scripts dir at ~/src/sd/..."
-git clone "https://github.com/ianthehenry/sd.git" "$bindir"
-mkdir -p "$scriptsdir"
-for item in scripts/* ; do
-  symlink "$basedir/$item" "$scriptsdir/$(basename $item)"
-done
-ln -s "$scriptsdir" "$bindir/sd"
-echo 'fpath=("$scriptsdir" "$fpath")' >> "$HOME/.zshlocal"
+# echo "Setting up scripts dir at ~/src/sd/..."
+# git clone "https://github.com/ianthehenry/sd.git" "$bindir"
+# mkdir -p "$scriptsdir"
+# for item in scripts/* ; do
+  # symlink "$basedir/$item" "$scriptsdir/$(basename $item)"
+# done
+# ln -s "$scriptsdir" "$bindir/sd"
+# echo 'fpath=("$scriptsdir" "$fpath")' >> "$HOME/.zshlocal"
 
 if [ -n "$VSCODE_REMOTE_CONTAINERS_SESSION" ]; then
   # We must be setting up a VS Code remote dev container, so I probably won't use Vim.
@@ -162,5 +162,6 @@ if [ ! -e "$HOME/.zshlocal" ]; then
 fi
 
 echo "Done."
+echo "(Optional) Setup https://github.com/ianthehenry/sd#installation"
 
 } # This ensures the entire script is downloaded.

@@ -1,22 +1,14 @@
 # 💾 Ean's Forked Dotfiles and Vim config
 
-See statico/dotfiles for origin repo. I have not updated this yet. 
 
-[![build status](https://img.shields.io/github/workflow/status/statico/dotfiles/Create%20and%20publish%20a%20Docker%20image.svg?style=flat-square)](https://ghcr.io/statico/dotfiles)
+[![build status](https://img.shields.io/github/workflow/status/EanNewton/dotfiles/Create%20and%20publish%20a%20Docker%20image.svg?style=flat-square)](https://github.com/EanNewton/dotfiles)
 
-These are my dotfiles. There are many like them, but these are mine. This started around 2001 or so when I used lots of different machines and environments. Now I mostly use macOS and Linux but still keep the environment in sync.
+These are my dotfiles. There are many like them, but these are mine. This started around 2021 or so when I used lots of different machines and environments. Now I mostly use Windows and Linux but still keep the environment in sync.
 
-![CleanShot 2021-10-01 at 20 15 23@2x](https://user-images.githubusercontent.com/137158/135730113-495868f0-e4ad-4e8a-a10e-7f07be402e9d.png)
+<!-- TODO: Update screenshot / banner image -->
+<!-- ![CleanShot 2021-10-01 at 20 15 23@2x](https://user-images.githubusercontent.com/137158/135730113-495868f0-e4ad-4e8a-a10e-7f07be402e9d.png) -->
 
 Favorite font at the moment: [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
-
-### Demo
-
-```
-$ docker run --rm -it ghcr.io/statico/dotfiles
-demouser@987552d4c629:/
-〉
-```
 
 A random prompt color is picked at first install. Edit `.zshlocal` for details.
 
@@ -31,18 +23,18 @@ Optionally create a `.postinstall` with some machine-specific commands, like `gi
 ### Customizing
 
 - Fork this repo
-- Update `install.zsh` to point at your own
+- Update `install.zsh` and `readme.md` to point at your own
 - Go nuts
 
 ### Highlights (or, Why I Use This)
 
-My first boss told me that I should have a digital _toolkit_ -- a set of tools that I keep with me that I can use anywhere. In college I used many different kinds of Unix variants, and so it made sense to build a kit that could bootstrap my environment anywhere. Today, I use macOS, Windows, and various distributions of Linux, and this kit has proven invaluable in getting set up quickly on new hardware and VMs.
+I have personally found that I like having a digital _toolkit_ -- a set of tools that I keep with me that I can use anywhere. I use many different kinds of Unix variants, and so it made sense to build a kit that could bootstrap my environment anywhere. Today, I use Windows and various distributions of Linux / BSD, and this kit has proven invaluable in getting set up quickly on new hardware and VMs.
 
 While this project includes a huge collection of configuration snippets I've collected over the years, a few parts stand out and are things I use daily:
 
-- My [`zshrc`](https://github.com/statico/dotfiles/blob/main/.zshrc), which has a minimal, customized prompt that I like the best, as well as many aliases and shortcuts to standardize environments (like making sure Unicode displays properly and `ls` shows colors) and reduce keystrokes (like with my ~60 or so Git aliases). There are also a few functions that make host-specific customizations easy using a `.zshlocal` script which never gets checked in. There are tons of tricks in there so it's worth a skim.
+- My [`zshrc`](https://github.com/EanNewton/dotfiles/blob/main/.zshrc), which has a minimal, customized prompt that I like the best, as well as many aliases and shortcuts to standardize environments (like making sure Unicode displays properly and `ls` shows colors) and reduce keystrokes (like with my ~60 or so Git aliases). There are also a few functions that make host-specific customizations easy using a `.zshlocal` script which never gets checked in. There are tons of tricks in there so it's worth a skim.
 
-- My [`vimrc`](https://github.com/statico/dotfiles/blob/main/.vim/vimrc), which many people became interested in after reading my [articles about Vim](https://statico.github.io). I also have [an `update.sh` script](https://github.com/statico/dotfiles/blob/main/.vim/update.sh) which installs all of the Vim plugins and themes I like to use, and it gets run as part of the Zsh update process (aliased to `ZU`). Is my Vim update thing better than Vundle or another plugin manager? Maybe. It's very simple and fast and works everywhere, so I stick with it.
+- My [`vimrc`](https://github.com/EanNewton/dotfiles/blob/main/.vim/vimrc). I also have [an `update.sh` script](https://github.com/EanNewton/dotfiles/blob/main/.vim/update.sh) which installs all of the Vim plugins and themes I like to use, and it gets run as part of the Zsh update process (aliased to `ZU`). Is my Vim update thing better than Vundle or another plugin manager? Maybe. It's very simple and fast and works everywhere, so I stick with it.
 
 ### Why Zsh instead of Bash?
 
@@ -56,7 +48,6 @@ Only a few reasons, honestly:
 
 - Globbing - The `**` recursive operator and qualifiers like `(.)` and `(/)` for globbing are essential, like `rm **/.DS_Store`
 
-- Legacy - I started using Zsh in 2002 or so when it was edgy.
 
 ### Common Tricks
 
