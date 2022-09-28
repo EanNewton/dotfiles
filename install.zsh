@@ -5,6 +5,7 @@ set -eo pipefail
 
 basedir="$HOME/.dotfiles"
 bindir="$HOME/bin"
+scriptsdir="$HOME/src/sd"
 repourl="git://github.com/EanNewton/dotfiles.git"
 
 function symlink() {
@@ -88,6 +89,16 @@ mkdir -p "$bindir"
 for item in bin/* ; do
   symlink "$basedir/$item" "$bindir/$(basename $item)"
 done
+
+# Untested
+echo "Setting up scripts dir at ~/src/sd/..."
+git clone "https://github.com/ianthehenry/sd.git" "$bindir"
+mkdir -p "$scriptsdir"
+for item in scripts/* ; do
+  symlink "$basedir/$item" "$scriptsdir/$(basename $item)"
+done
+ln -s "$scriptsdir" "$bindir/sd"
+echo 'fpath=("$scriptsdir" "$fpath")' >> "$HOME/.zshlocal"
 
 if [ -n "$VSCODE_REMOTE_CONTAINERS_SESSION" ]; then
   # We must be setting up a VS Code remote dev container, so I probably won't use Vim.
