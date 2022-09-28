@@ -2,11 +2,23 @@
 
 See statico/dotfiles for origin repo. I have not updated this yet. 
 
+[![build status](https://img.shields.io/github/workflow/status/statico/dotfiles/Create%20and%20publish%20a%20Docker%20image.svg?style=flat-square)](https://ghcr.io/statico/dotfiles)
+
 These are my dotfiles. There are many like them, but these are mine. This started around 2001 or so when I used lots of different machines and environments. Now I mostly use macOS and Linux but still keep the environment in sync.
 
 ![CleanShot 2021-10-01 at 20 15 23@2x](https://user-images.githubusercontent.com/137158/135730113-495868f0-e4ad-4e8a-a10e-7f07be402e9d.png)
 
 Favorite font at the moment: [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
+
+### Demo
+
+```
+$ docker run --rm -it ghcr.io/statico/dotfiles
+demouser@987552d4c629:/
+〉
+```
+
+A random prompt color is picked at first install. Edit `.zshlocal` for details.
 
 ### Installation
 
@@ -63,17 +75,6 @@ Here's what I use the most often on the command line:
 - Git commands: `st` for status, `gd` for a git diff, `gl` for a quick log, `sci <message>` to commit everything with a message, or `gap` to cherry pick and then `gc <message>` to commit.
 - Fuzzy history search using <kbd>Ctrl-R</kbd> and [FZF](https://github.com/junegunn/fzf)
 - Each host gets a different `colorprompt` command in its `~/.zshlocal`. I use `ansimodes` or `256-colors.sh` to pick a color. (Both are already in the `~/bin/` directory, which is added to the `$PATH`.)
-
-### Testing
-
-Testing is easy with Docker:
-
-```
-$ docker build . --tag dotfiles
-$ docker run --rm -it dotfiles
-root@987552d4c629:/
-〉
-```
 
 ### See also
 

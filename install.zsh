@@ -81,6 +81,7 @@ fi
 mkdir -p "$vscodepath"
 symlink "$basedir/.vscode-$vscodeplatform.settings.json" "$vscodepath/settings.json"
 symlink "$basedir/.vscode-$vscodeplatform.keybindings.json" "$vscodepath/keybindings.json"
+symlink "$basedir/.vscode-snippets" "$vscodepath/snippets"
 
 echo "Adding executables to ~/bin/..."
 mkdir -p "$bindir"
@@ -112,10 +113,10 @@ if which git-lfs >/dev/null 2>&1 ; then
 fi
 if which code >/dev/null 2>&1 ; then
   echo "VS Code found. Configuring Git to use it."
+  git config --global merge.tool vscode
+  git config --global mergetool.vscode.cmd 'code --wait --merge $REMOTE $LOCAL $BASE $MERGED'
   git config --global diff.tool vscode
   git config --global difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'
-  git config --global merge.tool vscode
-  git config --global mergetool.vscode.cmd 'code --wait $MERGED'
 fi
 
 if which tmux >/dev/null 2>&1 ; then

@@ -6,20 +6,19 @@
 #
 # Specify [pattern] to update only repos that match the pattern.
 
-repos=(
+plugins=(
 
+  # Functionality
   airblade/vim-gitgutter
-  alampros/vim-styled-jsx
   docunext/closetag.vim
   ervandew/supertab
   haya14busa/incsearch.vim
   itchyny/lightline.vim
   junegunn/fzf.vim
-  ledger/vim-ledger
+  junegunn/goyo.vim
+  junegunn/limelight.vim
   qpkorr/vim-bufkill
   scrooloose/nerdtree
-  sheerun/vim-polyglot
-  statico/vim-inform7
   tpope/vim-commentary
   tpope/vim-endwise
   tpope/vim-eunuch
@@ -31,6 +30,13 @@ repos=(
   tpope/vim-unimpaired
   wellle/targets.vim
 
+  # Syntax (polyglot being the most important)
+  alampros/vim-styled-jsx
+  ledger/vim-ledger
+  sheerun/vim-polyglot
+  statico/vim-inform7
+
+  # Colors
   arcticicestudio/nord-vim
   tomasr/molokai
 )
@@ -54,7 +60,7 @@ fi
 
 mkdir -p "$dir"
 
-for repo in ${repos[@]}; do
+for repo in ${plugins[@]}; do
   if [ -n "$1" ]; then
     if ! (echo "$repo" | grep -i "$1" &>/dev/null) ; then
       continue

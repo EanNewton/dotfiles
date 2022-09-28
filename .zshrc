@@ -119,25 +119,9 @@ _versionof() {
 
 # ENVIRONMENT VARIABLES {{{1
 
-# Yes, this defeats the point of the TERM variable, but everything pretty much
-# uses modern ANSI escape sequences. I've found that forcing everything to be
-# "rxvt" just about works everywhere. If you want to know if you're in screen,
-# use SHLVL or TERMCAP.
-if [ -n "$ITERM_SESSION_ID" ]; then
-  if [ "$TERM" = "screen" ]; then
-    export TERM=screen-256color
-  else
-    export TERM=xterm-256color
-  fi
-elif [ "$TERM_PROGRAM" = "Apple_Terminal" ]; then
-    export TERM=xterm-256color
-else
-  export TERM=rxvt
-fi
-
 if _has less; then
   export PAGER=less
-  export LESS='-R'
+  export LESS='-Ri'
 fi
 
 if _has vim; then
@@ -206,6 +190,7 @@ alias Ar='sudo apt remove'
 alias Arm='sudo apt autoremove'
 alias Arp='sudo apt remove --purge'
 alias As='apt search'
+alias SC='vim ~/.ssh/config'
 alias VU='~/.vim/update.sh'
 alias ZL='vim -o ~/.zshlocal ~/.zshrc && ZR'
 alias ZR='echo "Restarting zsh..." && exec zsh -l'
@@ -216,6 +201,7 @@ alias aag='agg'
 alias agg='_agg () { rg --group $@ | less }; _agg'
 alias bc='bc -l'
 alias cr2lf="perl -pi -e 's/\x0d/\x0a/gs'"
+alias curlheaders='curl -s -D- -o/dev/null'
 alias curltime='curl -w "@$HOME/.curl-format" -o /dev/null -s'
 alias d='docker'
 alias dc='docker-compose'
@@ -252,9 +238,7 @@ alias gf='git fetch'
 alias gfa='git fetch --all'
 alias gfix='git rebase -i HEAD~10'
 alias gfixup='git rebase -i HEAD~10'
-alias gfmom='git fetch origin && git merge origin'
-alias gfrb='git fetch origin && git rebase origin'
-alias gfrbi='gfrb --interactive'
+alias gfrb='git fetch && git rebase origin/main'
 alias gg='git grep'
 alias gh='git stash'
 alias ghl='git stash list'
@@ -268,17 +252,18 @@ alias gl1='git log -n 1'
 alias gl='git quicklog -n 20'
 alias gll='git quicklog-long'
 alias gls='git log --show-signature'
-alias gmom='git merge origin'
 alias gm='git merge'
+alias gmom='git merge origin'
 alias gmt='git mergetool'
 alias gp='git push'
 alias gpgdecrypt='gpg --decrypt-files'
 alias gpgencrypt='gpg --default-recipient-self --armor --encrypt-files'
 alias gph='git push heroku'
 alias gpo='git push origin'
-alias gpox='git push origin &>/dev/null & ; disown'
 alias gpof='git push origin --force-with-lease'
+alias gponv='git push origin --no-verify'
 alias gpot='git push origin --tags'
+alias gpox='git push origin &>/dev/null & ; disown'
 alias grb='git rebase'
 alias grbc='GIT_EDITOR=true git rebase --continue'
 alias grbi='git rebase -i'
@@ -287,6 +272,7 @@ alias gs='git show -p'
 alias gsm='git submodule'
 alias gsmu='git submodule update --init --recursive'
 alias gss='git show -p --stat'
+alias gt='git tag'
 alias gu='git unstage'
 alias gup='git up'
 alias gus='git unstage'
@@ -302,7 +288,7 @@ alias l="ls -lh"
 alias ll="l -a"
 alias lt='ls -lt'
 alias ltr='ls -ltr'
-alias nerdcrap='cat /dev/urandom | xxd | grep --color=never --line-buffered "be ef"'
+alias nerdcrap='cat /dev/urandom | xxd | grep --color=never --line-buffered -E "00 00[0-2]"'
 alias nohist='HISTFILE='
 alias notifydone='terminal-notifier -message Done.'
 alias pkgcat='lsbom -f -l -s -pf'
@@ -331,12 +317,13 @@ alias vb=VBoxManage
 alias vh=VBoxHeadless
 alias vimsql="vim -c 'set ft=sql'"
 alias wgetdir='wget -r -l1 -P035 -nd --no-parent'
-alias whois='whois -h geektools.com'
 alias wip='git add -A ; git commit --all --no-verify -m WIP'
+alias x='screen -A -x'
 alias y='yarn'
+alias yad='yarn add -D'
 alias ye='yarn exec'
 alias yeshist='HISTFILE=~/.zsh_history'
-alias x='screen -A -x'
+alias yrd='yarn remove -D'
 
 # Interactive/verbose commands.
 alias mv='mv -i'
@@ -345,7 +332,11 @@ for c in cp rm chmod chown rename; do
 done
 
 # Make sure vim/vi always gets us an editor.
-if _has vim; then
+if [ -n "$VSCODE_IPC_HOOK_CLI" ]; then
+  alias vi=code
+  alias vim=code
+  alias gvim=code
+elif _has vim; then
   alias vi=vim
   vs() { vim +"NERDTree $1" }
   gvs() { gvim +"NERDTree $1" }
@@ -443,7 +434,7 @@ ya() {
 yr() {
   for pkg in $@; do
     yarn remove $pkg
-    yarn remove -D @types/$pkg &>/dev/null
+    yarn remove @types/$pkg &>/dev/null
   done
 }
 
@@ -530,19 +521,15 @@ gc() {
   git log --oneline --decorate -n 10
 }
 
-# Commit everything, use args as message.
+# Commit everything. Use args as a message or prompt to edit a message.
 sci() {
-  if [ $# = 0 ]; then
-    echo "usage: $0 message..." >&2
-    return 1
-  fi
   git add -A && \
   hr staging && \
   git status && \
   hr committing && \
-  git cim "$*" && \
+  ( [ $# = 0 ] && git ci || git ci -m "$*" ) && \
   hr results && \
-  git quicklog && \
+  git --no-pager quicklog && \
   hr done
 }
 
@@ -622,9 +609,11 @@ bindkey -e
 
 # One keystroke to cd ..
 bindkey -s '\eu' '\eq^Ucd ..; ls^M'
+bindkey -s '¨' '\eq^Ucd ..; ls^M'
 
 # Smart less-adder
 bindkey -s "\el" "^E 2>&1|less^M"
+bindkey -s "¬" "^E 2>&1|less^M"
 
 # This lets me use ^Z to toggle between open text editors.
 bindkey -s '^Z' '^Ufg^M'
@@ -639,6 +628,7 @@ bindkey "ESC-." insert-last-word
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\ee' edit-command-line
+bindkey '´' edit-command-line
 
 # Let ^W delete to slashes - zsh-users list, 4 Nov 2005
 # (I can't live without this)
@@ -651,11 +641,12 @@ bindkey "^W" backward-delete-to-slash
 
 # AUTO_PUSHD is set so we can always use popd
 bindkey -s '\ep' '^Upopd >/dev/null; dirs -v^M'
+bindkey -s 'π' '^Upopd >/dev/null; dirs -v^M'
 
 # ZSH OPTIONS {{{1
 
 # Changing Directories
-setopt auto_cd
+unsetopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushd_silent
@@ -671,7 +662,8 @@ setopt no_beep
 
 # History
 setopt append_history
-unsetopt share_history
+setopt inc_append_history
+setopt share_history
 unsetopt bang_hist
 unsetopt extended_history
 
