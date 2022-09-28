@@ -1,2 +1,9 @@
 - Add scripts for grabbing the usual Windows / Linux logs
 - Add Tango Dark color scheme to .Xresources
+- Add script for setting up Debian / CentOS environment defaults
+- Set apt --assume-yes
+- Set choco --assume-yes
+- Add RainMeter profiles and resources
+- Link in external CLI utils
+- Update .github Docker build
+- Update README.md banner image
